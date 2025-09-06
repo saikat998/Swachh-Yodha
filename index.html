@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Swachh Yoddha</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "Noto Sans", sans-serif;
+      background: #f2f4f3;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .screen {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .active {
+      display: block;
+    }
+    .logo {
+      font-size: 60px;
+      color: green;
+      margin-bottom: 15px;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 10px 0;
+    }
+    p {
+      color: #555;
+      margin: 5px 0 15px;
+    }
+    input, button, select {
+      width: 90%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: darkgreen;
+    }
+    video, canvas, img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .job-card {
+      background: #f9f9f9;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+    }
+    /* Splash screen styling */
+    #splashScreen {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f2f4f3;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      text-align: center;
+    }
+    #splashScreen .logo {
+      font-size: 80px;
+    }
+    #splashScreen h1 {
+      font-size: 26px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SPLASH SCREEN -->
+  <div id="splashScreen">
+    <div class="logo">♻️</div>
+    <h1>Swachh Yoddha</h1>
+    <p>Empowering Clean India</p>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="screen" id="loginScreen">
+    <div class="logo">♻️</div>
+    <h1>Swachh Yoddha</h1>
+    <p>Welcome back, please enter your details</p>
+    <input type="text" id="phone" placeholder="Enter Mobile Number">
+    <button onclick="sendOTP()">Send OTP</button>
+    <div id="otpSection" style="display:none;">
+      <input type="text" id="otp" placeholder="Enter OTP">
+      <button onclick="verifyOTP()">Verify OTP</button>
+    </div>
+  </div>
+
+  <!-- TODAY'S JOBS -->
+  <div class="screen" id="jobsScreen">
+    <h1>Today's Jobs</h1>
+    <div class="job-card" onclick="openJobDetails('Job 1')">
+      <strong>Job 1</strong><br> Street Cleaning - Sector 5
+    </div>
+    <div class="job-card" onclick="openJobDetails('Job 2')">
+      <strong>Job 2</strong><br> Garbage Pickup - Ward 12
+    </div>
+  </div>
+
+  <!-- JOB DETAILS + QR -->
+  <div class="screen" id="jobDetailsScreen">
+    <h1 id="jobTitle">Job Details</h1>
+    <p>Scan the QR Code at location</p>
+    <button onclick="mockQRScan()">Scan QR</button>
+    <p id="qrResult"></p>
+    <button onclick="goToScreen('proofScreen')">Next</button>
+  </div>
+
+  <!-- PROOF OF EVIDENCE -->
+  <div class="screen" id="proofScreen">
+    <h1>Proof of Evidence</h1>
+    <video id="camera" autoplay playsinline></video>
+    <canvas id="snapshot" style="display:none;"></canvas>
+    <button onclick="capturePhoto()">Capture Photo</button>
+    <div id="photoPreview"></div>
+    <button onclick="goToScreen('statusScreen')">Next</button>
+  </div>
+
+  <!-- UPDATE STATUS -->
+  <div class="screen" id="statusScreen">
+    <h1>Update Status</h1>
+    <select id="status">
+      <option value="completed">Completed</option>
+      <option value="pending">Pending</option>
+      <option value="failed">Failed</option>
+    </select>
+    <button onclick="finishJob()">Submit</button>
+  </div>
+
+  <script>
+    let generatedOTP = "";
+
+    // Show splash for 4 seconds
+    window.onload = function() {
+      setTimeout(() => {
+        document.getElementById("splashScreen").style.display = "none";
+        document.getElementById("loginScreen").classList.add("active");
+      }, 4000);
+    }
+
+    // Camera Access - only when Proof of Evidence screen is shown
+    function openCamera() {
+      const video = document.getElementById("camera");
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => { video.srcObject = stream; })
+          .catch(err => console.log("Camera not available", err));
+      }
+    }
+
+    function goToScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === 'proofScreen') {
+        openCamera();
+      }
+    }
+
+    function sendOTP() {
+      generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
+      alert("Your OTP is: " + generatedOTP); // Demo only
+      document.getElementById("otpSection").style.display = "block";
+    }
+
+    function verifyOTP() {
+      let entered = document.getElementById("otp").value;
+      if (entered === generatedOTP) {
+        goToScreen('jobsScreen');
+      } else {
+        alert("Invalid OTP");
+      }
+    }
+
+    function openJobDetails(job) {
+      document.getElementById("jobTitle").innerText = job;
+      goToScreen('jobDetailsScreen');
+    }
+
+    function mockQRScan() {
+      document.getElementById("qrResult").innerText = "✅ QR Verified";
+    }
+
+    function capturePhoto() {
+      const canvas = document.getElementById("snapshot");
+      const context = canvas.getContext("2d");
+      canvas.width = video.videoWidt
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imgData = canvas.toDataURL("image/png");
+      document.getElementById("photoPreview").innerHTML = `<img src="${imgData}" width="100%">`;
+    }
+
+    function finishJob() {
+      let status = document.getElementById("status").value;
+      alert("Job updated as: " + status);
+      // Stop camera stream if active
+      const video = document.getElementById("camera");
+      if (video && video.srcObject) {
+        const tracks = video.srcObject.getTracks();
+        tracks.forEach(track => track.stop());
+        video.srcObject = null;
+      }
+      goToScreen('jobsScreen');
+    }
+  </script>
+
+</body>
+</html>
