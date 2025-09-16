@@ -245,7 +245,7 @@
         <h1>Welcome Back!</h1>
         <p style="text-align: center;">Please enter your mobile number to begin.</p>
         <div class="card">
-            <input type="tel" id="phone" placeholder="Enter Mobile Number" class="input-field" pattern="[0-9]{10}" maxlength="10" inputmode="numeric">
+            <input type="tel" id="phone" placeholder="Enter Mobile Number" class="input-field" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" autofocus>
             <button class="btn btn-primary" onclick="sendOTP()"><i class="fas fa-paper-plane"></i> Send OTP</button>
             <div id="otpSection" style="display:none; margin-top: 1rem;">
                 <input type="text" id="otp" placeholder="Enter OTP" class="input-field">
@@ -425,6 +425,9 @@
                 setTimeout(() => {
                     splash.classList.remove('active');
                     goToScreen('loginScreen');
+                    // Focus the phone input after splash
+                    var phoneInput = document.getElementById('phone');
+                    if (phoneInput) phoneInput.focus();
                 }, 500);
             }, 2500);
         }
