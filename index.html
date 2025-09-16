@@ -423,7 +423,8 @@
                 splash.style.opacity = '0';
                 splash.style.transition = 'opacity 0.5s';
                 setTimeout(() => {
-                    splash.classList.remove('active');
+                    // Remove splash from DOM completely
+                    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
                     goToScreen('loginScreen');
                     // Focus the phone input after splash
                     var phoneInput = document.getElementById('phone');
