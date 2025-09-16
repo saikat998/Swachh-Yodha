@@ -245,7 +245,7 @@
         <h1>Welcome Back!</h1>
         <p style="text-align: center;">Please enter your mobile number to begin.</p>
         <div class="card">
-            <input type="text" id="phone" placeholder="Enter Mobile Number" class="input-field">
+            <input type="tel" id="phone" placeholder="Enter Mobile Number" class="input-field" pattern="[0-9]{10}" maxlength="10" inputmode="numeric">
             <button class="btn btn-primary" onclick="sendOTP()"><i class="fas fa-paper-plane"></i> Send OTP</button>
             <div id="otpSection" style="display:none; margin-top: 1rem;">
                 <input type="text" id="otp" placeholder="Enter OTP" class="input-field">
