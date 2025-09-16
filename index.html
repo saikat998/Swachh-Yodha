@@ -1,554 +1,466 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Swachh Yoddha</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: "Noto Sans", sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(to bottom, #e8f5f8, #d1f2eb);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      overflow: hidden;
-    }
-    .screen {
-      display: none;
-      width: 100%;
-      max-width: 400px;
-      background: #fff;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .active {
-      display: block;
-    }
-    .logo {
-      font-size: 60px;
-      color: green;
-      margin-bottom: 15px;
-    }
-    h1 {
-      font-size: 22px;
-      margin: 10px 0;
-    }
-    p {
-      color: #555;
-      margin: 5px 0 15px;
-    }
-    input, button, select {
-      width: 90%;
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-    button {
-      background: green;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover {
-      background: darkgreen;
-    }
-    video, canvas, img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-    .job-card {
-      background: #f9f9f9;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      text-align: left;
-      cursor: pointer;
-    }
-    /* Splash screen styling */
-    #splashScreen {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(to bottom, #e8f5f8, #d1f2eb);
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 9999;
-      text-align: center;
-    }
-    #splashScreen .logo {
-      font-size: 80px;
-    }
-    #splashScreen h1 {
-      font-size: 26px;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    /* DASHBOARD SPECIFIC STYLES */
-    .dashboard-container {
-      width: 100vw;
-      max-width: 400px;
-      margin: 0 auto;
-      padding-bottom: 90px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      background: linear-gradient(to bottom, #e8f5f8, #d1f2eb);
-      overflow: hidden;
-    }
-    .dashboard-header {
-      margin-top: 32px;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-    .dashboard-header h1 {
-      font-size: 26px;
-      font-weight: bold;
-      margin: 0 0 6px 0;
-      color: #219150;
-      letter-spacing: 0.5px;
-    }
-    .dashboard-header p {
-      color: #4caf50;
-      margin: 0 0 18px 0;
-      font-size: 15px;
-    }
-    .dashboard-feature-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      margin-top: 10px;
-    }
-    .dashboard-feature-btn {
-      background: #fff;
-      border: none;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(44, 62, 80, 0.10);
-      padding: 18px 0;
-      font-size: 18px;
-      font-weight: 600;
-      color: #219150;
-      margin: 0;
-      width: 100%;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .dashboard-feature-btn:hover {
-      background: #eafbe7;
-      color: #176d3b;
-    }
-    /* BOTTOM NAVIGATION BAR */
-    .bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 70px;
-      background: #fff;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-      border-radius: 30px 30px 0 0;
-      width: 100vw;
-      margin: 0 auto;
-    }
-    .bottom-nav.active {
-      display: flex;
-    }
-    .bottom-nav button {
-      background: none;
-      border: none;
-      outline: none;
-      font-size: 28px;
-      color: #bdbdbd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 18px;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      transition: color 0.2s, background 0.2s;
-    }
-    .bottom-nav button.active, .bottom-nav button:focus {
-      color: #219150;
-      background: #eafbe7;
-    }
-    .bottom-nav-label {
-      display: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Swachh Yoddha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* CSS Variables for easy theme management */
+        :root {
+            --primary-color: #27ae60;
+            --primary-dark: #219150;
+            --secondary-color: #2980b9;
+            --danger-color: #e74c3c;
+            --warning-color: #e67e22;
+            --background-gradient: linear-gradient(to bottom, #e8f5f8, #d1f2eb);
+            --text-dark: #2c3e50;
+            --text-light: #555;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --shadow: 0 4px 24px rgba(44, 62, 80, 0.1);
+            --border-radius: 16px;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background: var(--background-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text-dark);
+        }
+
+        /* Screen & Animation */
+        .screen {
+            display: none;
+            width: 100vw;
+            max-width: 400px;
+            min-height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .screen.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Component: Cards */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 340px;
+            margin-bottom: 1rem;
+            box-sizing: border-box;
+        }
+        
+        /* Typography */
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin: 0 0 0.5rem 0;
+        }
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            text-align: left;
+        }
+        p {
+            color: var(--text-light);
+            margin: 0 0 1.5rem 0;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+        
+        /* Form Elements */
+        .input-field {
+            width: 100%; padding: 14px; margin-bottom: 1rem;
+            border: 1px solid #ccc; border-radius: 12px;
+            font-size: 1rem; font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+        .btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.5rem; width: 100%; padding: 14px; border: none;
+            border-radius: 12px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-secondary { background: #bdc3c7; color: white; }
+        .btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Splash Screen */
+        #splashScreen {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 9999; background: var(--background-gradient);
+        }
+        #splashScreen .logo { font-size: 5rem; }
+        .loader {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--primary-dark); margin: 3rem 0 0 0;
+            animation: pulse 1.5s infinite ease-in-out;
+            box-shadow: 0 0 20px var(--primary-dark);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid; grid-template-columns: 1fr;
+            gap: 1rem; width: 100%;
+        }
+        .dashboard-btn {
+            background: var(--card-bg); color: var(--primary-dark);
+            box-shadow: var(--shadow); padding: 1.5rem; text-align: center;
+        }
+
+        /* Profile Screen */
+        #profileDetails p { margin-bottom: 0.5rem; }
+        #profileDetails strong { color: var(--primary-dark); }
+        .btn-logout { background: var(--danger-color); color: white; width: auto; padding: 10px 30px; }
+
+        /* Rewards Screen */
+        .tab-controls { display: flex; margin-bottom: 1.5rem; }
+        .tab-btn {
+            flex: 1; padding: 12px; border: none; font-size: 1rem;
+            font-weight: 600; cursor: pointer; background: rgba(255,255,255,0.4);
+            color: var(--text-light); transition: all 0.3s;
+        }
+        .tab-btn:first-child { border-radius: 12px 0 0 12px; }
+        .tab-btn:last-child { border-radius: 0 12px 12px 0; }
+        .tab-btn.active { background: white; color: var(--primary-color); box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .list-item {
+            display: flex; align-items: center; gap: 1rem;
+            background: rgba(255,255,255,0.8); padding: 1rem;
+            border-radius: 12px; margin-bottom: 0.8rem; text-align: left;
+        }
+        .list-item i { font-size: 1.5rem; color: var(--primary-color); }
+        
+        /* Today's Work Screen */
+        .work-list { text-align: left; }
+        .work-item {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 0.8rem 0; border-bottom: 1px solid #eee;
+        }
+        .work-item:last-child { border-bottom: none; }
+        .work-item i { font-size: 1.5rem; color: var(--secondary-color); }
+        .work-status { margin-left: auto; font-weight: 600; font-size: 0.9rem; }
+        .work-status.completed { color: var(--primary-color); }
+        .work-status.pending { color: var(--warning-color); }
+
+        /* Training Guide Screen */
+        #trainingScreen { justify-content: flex-start; }
+        .screen-header {
+            width: 100%; max-width: 340px; display: flex;
+            justify-content: space-between; align-items: center; margin-bottom: 1rem;
+        }
+        .screen-header h1 { margin: 0; }
+        .screen-header .btn { width: auto; padding: 8px 16px; font-size: 0.9rem; }
+        .scrollable-content {
+            width: 100%; height: calc(100vh - 9rem);
+            overflow-y: auto; padding-right: 10px;
+        }
+        .training-guide p, .training-guide li { color: var(--text-dark); line-height: 1.7; }
+        .training-list { list-style-type: none; padding-left: 0; }
+        .training-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; }
+        .training-list li::before {
+            content: '✓'; font-weight: 600; color: var(--primary-color);
+            position: absolute; left: 0;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: none; position: fixed; left: 50%;
+            transform: translateX(-50%); bottom: 1.5rem;
+            padding: 0.5rem; background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px); border-radius: 50px;
+            box-shadow: var(--shadow); z-index: 1000;
+        }
+        .bottom-nav.active { display: flex; gap: 0.5rem; }
+        .nav-btn {
+            background: transparent; border: none; border-radius: 50%;
+            width: 50px; height: 50px; font-size: 1.5rem;
+            color: #aaa; cursor: pointer; transition: all 0.3s;
+        }
+        .nav-btn.active {
+            background: var(--primary-color); color: white;
+            transform: translateY(-5px);
+        }
+    </style>
 </head>
 <body>
 
-  <!-- SPLASH SCREEN -->
-  <div id="splashScreen">
-    <div class="logo">♻️</div>
-    <h1>Swachh Yoddha</h1>
-    <p>Empowering Clean India</p>
-  </div>
-
-  <!-- LOGIN -->
-  <div class="screen" id="loginScreen">
-    <div class="logo">♻️</div>
-    <h1>Swachh Yoddha</h1>
-    <p>Welcome back, please enter your details</p>
-    <input type="text" id="phone" placeholder="Enter Mobile Number">
-    <button onclick="sendOTP()">Send OTP</button>
-    <div id="otpSection" style="display:none;">
-      <input type="text" id="otp" placeholder="Enter OTP">
-      <button onclick="verifyOTP()">Verify OTP</button>
+    <div class="screen active" id="splashScreen">
+        <div class="logo">♻️</div>
+        <h1>Swachh Yoddha</h1>
+        <p style="text-align: center;">Empowering a Cleaner India</p>
+        <div class="loader"></div>
     </div>
-  </div>
 
-  <!-- TODAY'S JOBS -->
-  <div class="screen" id="jobsScreen">
-    <h1>Today's Jobs</h1>
-    <div class="job-card" onclick="openJobDetails('Job 1')">
-      <strong>Job 1</strong><br> Street Cleaning - Sector 5
+    <div class="screen" id="loginScreen">
+        <div class="logo" style="font-size:80px;">♻️</div>
+        <h1>Welcome Back!</h1>
+        <p style="text-align: center;">Please enter your mobile number to begin.</p>
+        <div class="card">
+            <input type="text" id="phone" placeholder="Enter Mobile Number" class="input-field">
+            <button class="btn btn-primary" onclick="sendOTP()"><i class="fas fa-paper-plane"></i> Send OTP</button>
+            <div id="otpSection" style="display:none; margin-top: 1rem;">
+                <input type="text" id="otp" placeholder="Enter OTP" class="input-field">
+                <button class="btn btn-primary" onclick="verifyOTP()"><i class="fas fa-check-circle"></i> Verify OTP</button>
+            </div>
+        </div>
     </div>
-    <div class="job-card" onclick="openJobDetails('Job 2')">
-      <strong>Job 2</strong><br> Garbage Pickup - Ward 12
-    </div>
-  </div>
 
-  <!-- JOB DETAILS + QR -->
-  <div class="screen" id="jobDetailsScreen">
-    <h1 id="jobTitle">Job Details</h1>
-    <p>Scan the QR Code at location</p>
-    <button onclick="mockQRScan()">Scan QR</button>
-    <p id="qrResult"></p>
-    <button onclick="goToScreen('proofScreen')">Next</button>
-  </div>
-
-  <!-- PROOF OF EVIDENCE -->
-  <div class="screen" id="proofScreen">
-    <h1>Proof of Evidence</h1>
-    <video id="camera" autoplay playsinline></video>
-    <canvas id="snapshot" style="display:none;"></canvas>
-    <button onclick="capturePhoto()">Capture Photo</button>
-    <div id="photoPreview"></div>
-    <button onclick="goToScreen('statusScreen')">Next</button>
-  </div>
-
-  <!-- UPDATE STATUS -->
-  <div class="screen" id="statusScreen">
-    <h1>Update Status</h1>
-    <select id="status">
-      <option value="completed">Completed</option>
-      <option value="pending">Pending</option>
-      <option value="failed">Failed</option>
-    </select>
-    <button onclick="finishJob()">Submit</button>
-  </div>
-
-  <!-- PROFILE SETUP -->
-  <div class="screen" id="profileScreen">
-    <h1>Profile Setup</h1>
-    <input type="text" id="fullName" placeholder="Full Name">
-    <input type="email" id="email" placeholder="Email Address">
-    <input type="text" id="address" placeholder="Address">
-    <select id="gender" style="width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
-      <option value="">Select Gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </select>
-    <button onclick="saveProfile()">Save Profile</button>
-  </div>
-
-  <!-- PROFILE VIEW -->
-  <div class="screen" id="profileViewScreen">
-    <h1>Profile</h1>
-    <div id="profileDetails" style="background:rgba(255,255,255,0.8); border-radius:16px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:18px 0; margin:18px 0;"></div>
-    <button onclick="goToScreen('profileScreen')" style="width:100%; margin-bottom:12px;">Edit Profile</button>
-    <button onclick="logout()" style="background: #e74c3c; width:100%;">Logout</button>
-  </div>
-
-  <!-- DASHBOARD -->
-  <div class="screen" id="dashboardScreen">
-    <div class="dashboard-container">
-      <div class="dashboard-header">
+    <div class="screen" id="dashboardScreen">
         <h1 id="welcomeName">Welcome!</h1>
-        <p>Let's make our city cleaner.</p>
-      </div>
-      <div class="dashboard-feature-list">
-        <button class="dashboard-feature-btn" onclick="goToScreen('trainingScreen')">
-          🎥 Training Videos
+        <p style="text-align: center;">Let's make our city cleaner today.</p>
+        <div class="dashboard-grid">
+            <button class="btn dashboard-btn" onclick="goToScreen('jobsScreen')">
+                <i class="fas fa-tasks"></i> Today's Work
+            </button>
+            <button class="btn dashboard-btn" onclick="goToScreen('rewardsScreen')">
+                <i class="fas fa-trophy"></i> Rewards & Incentives
+            </button>
+            <button class="btn dashboard-btn" onclick="goToScreen('trainingScreen')">
+                <i class="fas fa-video"></i> Training Guide
+            </button>
+        </div>
+    </div>
+    
+    <div class="screen" id="profileViewScreen">
+        <h1>My Profile</h1>
+        <div class="card" id="profileDetails"></div>
+        <button onclick="logout()" class="btn btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <div class="screen" id="rewardsScreen">
+        <h1>Rewards</h1>
+        <div class="tab-controls">
+            <button id="incentiveTab" class="tab-btn active" onclick="showTab('incentives')">Incentives</button>
+            <button id="penaltyTab" class="tab-btn" onclick="showTab('penalties')">Penalties</button>
+        </div>
+        <div id="incentivesSection" class="tab-content">
+            <div class="list-item">
+                <i class="fas fa-star" style="color: #f1c40f;"></i>
+                <div>
+                    <div style="font-weight: 600;">Total Incentive Points: 120</div>
+                    <div style="font-size: 0.9rem; color: var(--text-light);">Level: Silver</div>
+                </div>
+            </div>
+            <h3 style="margin-top: 2rem; text-align: left; font-size: 1rem;">History</h3>
+            <div class="list-item">
+                <i class="fas fa-calendar-check"></i>
+                <div>
+                    <div style="font-weight: 500;">Street Cleaning - 12 Sep</div>
+                    <div style="font-size: 0.9rem; color: var(--primary-dark);">+20 pts</div>
+                </div>
+            </div>
+        </div>
+        <div id="penaltiesSection" class="tab-content" style="display:none;">
+            <div class="list-item">
+                <i class="fas fa-exclamation-triangle" style="color: var(--danger-color);"></i>
+                <div>
+                    <div style="font-weight: 600;">Total Penalty Due: ₹100</div>
+                    <div style="font-size: 0.9rem; color: var(--text-light);">2 Pending issues</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen" id="jobsScreen">
+        <h1>Today's Work</h1>
+        <p style="text-align: center;">Review your assigned tasks for today.</p>
+        <div class="card work-list">
+            <div class="work-item">
+                <i class="fas fa-house-user"></i>
+                <span>House no. 1</span>
+                <span class="work-status completed">Picked Up</span>
+            </div>
+            <div class="work-item">
+                <i class="fas fa-house-user"></i>
+                <span>House no. 2</span>
+                <span class="work-status completed">Picked Up</span>
+            </div>
+            <div class="work-item">
+                <i class="fas fa-house-user"></i>
+                <span>House no. 3</span>
+                <span class="work-status pending">Not Picked Up</span>
+            </div>
+        </div>
+            <p style="text-align: center;">You can return to the dashboard using the navigation below.</p>
+    </div>
+
+    <div class="screen" id="trainingScreen">
+        <div class="screen-header">
+            <h1>Training Guide</h1>
+        </div>
+        <div class="scrollable-content">
+            <div class="card training-guide">
+                <h2>👋 Welcome to the Team!</h2>
+                <p>You are a Swachh Yoddha, and your work is one of the most important jobs in our city. You are on the front line of public health and environmental protection. This guide will help you perform your duties safely, professionally, and efficiently.</p>
+            
+                <h2>Module 1: Daily Preparation</h2>
+                <ul class="training-list">
+                    <li><strong>Check Your Gear (PPE):</strong> Your safety is #1. Always wear your 🧤 Gloves, 🥾 Safety Boots, 😷 Face Mask, and 🧥 High-Visibility Jacket.</li>
+                    <li><strong>Inspect Your Vehicle:</strong> Do a quick check of your vehicle. Ensure it's clean and all tools are present.</li>
+                    <li><strong>Check the App:</strong> Log in to the Swachh Yoddha app. Review your assigned route and any special instructions for the day.</li>
+                </ul>
+            
+                <h2>Module 2: The Collection Process</h2>
+                <ul class="training-list">
+                    <li><strong>Be Professional:</strong> Handle bins carefully to avoid spills. If anything spills, clean it up immediately. Be courteous to all residents.</li>
+                    <li><strong>Handle Waste Correctly:</strong> Separate waste properly. 🔵 Dry Waste (Paper, plastic), 🟢 Wet Waste (Food scraps), and 🔴 Hazardous Waste (Batteries, glass) must be kept separate.</li>
+                    <li><strong>Update the App:</strong> After collection from a house, mark the status as "Picked Up" or "Not Picked Up" in the app immediately.</li>
+                </ul>
+
+                <h2>Module 3: Health & Safety</h2>
+                <ul class="training-list">
+                    <li><strong>Proper Lifting:</strong> Bend your knees, not your back! Lift with your legs to avoid injury. 
+
+[Image of correct lifting posture]
+</li>
+                    <li><strong>Wash Your Hands:</strong> Wash hands thoroughly with soap after your shift and before eating.</li>
+                    <li><strong>Report Injuries:</strong> Report any cut or injury to your supervisor right away, no matter how small.</li>
+                </ul>
+
+                <h2>Module 4: End of Shift</h2>
+                <ul class="training-list">
+                    <li><strong>Dispose Correctly:</strong> Unload waste into the correct sections at the municipal disposal center.</li>
+                    <li><strong>Clean Your Vehicle:</strong> Wash your vehicle so it's ready for the next day.</li>
+                    <li><strong>Final Report:</strong> Mark your route as "Complete" in the app. Report any major issues you noticed during your route.</li>
+                </ul>
+                <p style="margin-top: 2rem; font-weight: 600; color: var(--primary-dark);">Thank you for building a cleaner, healthier India!</p>
+            </div>
+        </div>
+    </div>
+
+        <div class="screen" id="helpScreen">
+            <h1>Help & Support</h1>
+            <div style="background:rgba(255,255,255,0.8); border-radius:16px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:18px 0; margin:18px 0; max-width:320px; margin-left:auto; margin-right:auto;">
+                <div style="font-size:18px; color:#219150; font-weight:600; margin-bottom:8px;">Contact Us</div>
+                <div style="font-size:16px; color:#333; margin-bottom:6px;">📧 Email: <a href="mailto:swachhyodha@gmail.com" style="color:#219150; text-decoration:none;">swachhyodha@gmail.com</a></div>
+                <div style="font-size:16px; color:#333;">📞 Phone No.: <a href="tel:7125968569" style="color:#219150; text-decoration:none;">7125968569</a></div>
+            </div>
+        </div>
+
+
+    <div class="bottom-nav" id="bottomNav">
+        <button id="navHome" class="nav-btn" onclick="goToScreen('dashboardScreen'); setActiveNav('navHome')">
+            <i class="fas fa-home"></i>
         </button>
-        <button class="dashboard-feature-btn" onclick="goToScreen('rewardsScreen')">
-          🏆 Rewards & Incentives
+        <button id="navProfile" class="nav-btn" onclick="showProfileView(); setActiveNav('navProfile')">
+            <i class="fas fa-user"></i>
         </button>
-      </div>
+        <button id="navHelp" class="nav-btn" onclick="goToScreen('helpScreen'); setActiveNav('navHelp')">
+            <i class="fas fa-question-circle"></i>
+        </button>
     </div>
-  </div>
 
-  <!-- TRAINING SCREEN -->
-  <div class="screen" id="trainingScreen">
-    <h1>Training Videos</h1>
-    <p>Watch training videos to improve your skills.</p>
-    <!-- Example video embed -->
-    <iframe width="100%" height="200" src="https://www.youtube.com/embed/1Ne1hqOXKKI" title="Training Video" frameborder="0" allowfullscreen></iframe>
-  </div>
+    <script>
+        function goToScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            
+            const nav = document.getElementById('bottomNav');
+            const navVisibleScreens = ['dashboardScreen', 'rewardsScreen', 'helpScreen', 'profileViewScreen', 'trainingScreen', 'jobsScreen'];
 
-  <!-- REWARDS & INCENTIVES SCREEN -->
-  <div class="screen" id="rewardsScreen">
-    <div class="dashboard-container">
-      <div style="display: flex; justify-content: center; gap: 12px; margin-bottom: 18px;">
-        <button id="incentiveTab" onclick="showIncentives()" style="flex:1; background:#eafbe7; color:#219150; border:none; border-radius:16px 0 0 16px; font-weight:600; font-size:16px; padding:10px 0;">Incentives</button>
-        <button id="penaltyTab" onclick="showPenalties()" style="flex:1; background:#fff3e0; color:#e65100; border:none; border-radius:0 16px 16px 0; font-weight:600; font-size:16px; padding:10px 0;">Penalties</button>
-      </div>
-      <div id="incentivesSection">
-        <div style="background:rgba(255,255,255,0.7); border-radius:18px; box-shadow:0 4px 24px rgba(44,62,80,0.10); padding:18px; margin-bottom:18px; display:flex; align-items:center; gap:16px;">
-          <span style="font-size:32px; color:#219150;">🏆</span>
-          <div>
-            <div style="font-size:18px; font-weight:600; color:#219150;">Total Incentive Points</div>
-            <div style="font-size:24px; font-weight:bold; color:#219150;">120</div>
-            <div style="font-size:14px; color:#4caf50; margin-top:2px;">Level: <span style="font-weight:600;">Silver</span></div>
-          </div>
-        </div>
-        <div style="margin-bottom:12px; font-weight:600; color:#219150;">Incentive History</div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <div style="background:rgba(255,255,255,0.8); border-radius:14px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:12px 14px; display:flex; align-items:center; gap:12px;">
-            <span style="font-size:22px;">📅</span>
-            <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600;">12 Sep 2025 - Street Cleaning</div>
-              <div style="font-size:13px; color:#219150;">+20 pts <span style="font-size:12px; color:#888;">(Supervisor: Good job!)</span></div>
-            </div>
-          </div>
-          <div style="background:rgba(255,255,255,0.8); border-radius:14px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:12px 14px; display:flex; align-items:center; gap:12px;">
-            <span style="font-size:22px;">📅</span>
-            <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600;">10 Sep 2025 - Garbage Pickup</div>
-              <div style="font-size:13px; color:#219150;">+15 pts <span style="font-size:12px; color:#888;">(Supervisor: Punctual)</span></div>
-            </div>
-          </div>
-        </div>
-        <div style="margin:18px 0 0 0;">
-          <button style="background:#219150; color:#fff; border:none; border-radius:12px; padding:12px 24px; font-size:16px; font-weight:600; box-shadow:0 2px 8px rgba(44,62,80,0.10);">Redeem Points</button>
-        </div>
-      </div>
-      <div id="penaltiesSection" style="display:none;">
-        <div style="background:rgba(255,87,34,0.12); border-radius:18px; box-shadow:0 4px 24px rgba(44,62,80,0.10); padding:18px; margin-bottom:18px; display:flex; align-items:center; gap:16px;">
-          <span style="font-size:32px; color:#e65100;">💸</span>
-          <div>
-            <div style="font-size:18px; font-weight:600; color:#e65100;">Total Penalty Due</div>
-            <div style="font-size:24px; font-weight:bold; color:#e65100;">₹100</div>
-          </div>
-        </div>
-        <div style="margin-bottom:12px; font-weight:600; color:#e65100;">Penalty History</div>
-        <div style="display:flex; flex-direction:column; gap:12px;">
-          <div style="background:rgba(255,255,255,0.8); border-radius:14px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:12px 14px; display:flex; align-items:center; gap:12px;">
-            <span style="font-size:22px;">🚫</span>
-            <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600;">Late Reporting</div>
-              <div style="font-size:13px; color:#e65100;">₹50 <span style="font-size:12px; color:#888;">(12 Sep 2025)</span></div>
-            </div>
-            <button style="background:#fff3e0; color:#e65100; border:none; border-radius:8px; padding:6px 14px; font-size:13px; font-weight:600; box-shadow:0 1px 4px rgba(44,62,80,0.06);">Resolve</button>
-          </div>
-          <div style="background:rgba(255,255,255,0.5); border-radius:14px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:12px 14px; display:flex; align-items:center; gap:12px; opacity:0.5;">
-            <span style="font-size:22px;">🚫</span>
-            <div style="flex:1;">
-              <div style="font-size:15px; font-weight:600;">Task Incompletion</div>
-              <div style="font-size:13px; color:#e65100;">₹50 <span style="font-size:12px; color:#888;">(10 Sep 2025)</span></div>
-            </div>
-            <span style="font-size:13px; color:#888; font-weight:600;">Settled</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+            if (navVisibleScreens.includes(id)) {
+                nav.classList.add('active');
+            } else {
+                nav.classList.remove('active');
+            }
+        }
 
-  <!-- HELP SCREEN -->
-  <div class="screen" id="helpScreen">
-    <h1>Help</h1>
-    <div style="background:rgba(255,255,255,0.8); border-radius:16px; box-shadow:0 2px 8px rgba(44,62,80,0.06); padding:18px 0; margin:18px 0;">
-      <div style="font-size:18px; color:#219150; font-weight:600; margin-bottom:8px;">Contact Us</div>
-      <div style="font-size:16px; color:#333; margin-bottom:6px;">📧 <a href="mailto:swachhyodha@gmail.com" style="color:#219150; text-decoration:none;">swachhyodha@gmail.com</a></div>
-      <div style="font-size:16px; color:#333;">📞 <a href="tel:7029553373" style="color:#219150; text-decoration:none;">7029553373</a></div>
-    </div>
-  </div>
+        window.onload = function() {
+            setTimeout(() => {
+                const splash = document.getElementById("splashScreen");
+                splash.style.opacity = '0';
+                splash.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    splash.classList.remove('active');
+                    goToScreen('loginScreen');
+                }, 500);
+            }, 2500);
+        }
 
-  <!-- BOTTOM NAVIGATION BAR -->
-  <div class="bottom-nav" id="bottomNav">
-    <button id="navHome" onclick="goToScreen('dashboardScreen'); setActiveNav('navHome')">
-      <span>🏠</span>
-    </button>
-    <button id="navProfile" onclick="goToScreen('profileScreen'); setActiveNav('navProfile')">
-      <span>👤</span>
-    </button>
-    <button id="navHelp" onclick="goToScreen('helpScreen'); setActiveNav('navHelp')">
-      <span>❓</span>
-    </button>
-  </div>
+        function sendOTP() {
+            document.getElementById("otpSection").style.display = "block";
+        }
 
-  <script>
-    let generatedOTP = "";
+        function verifyOTP() {
+            if (document.getElementById("otp").value === "1234") {
+                goToScreen('dashboardScreen');
+                setActiveNav('navHome');
+                updateWelcomeName();
+            } else {
+                alert("Invalid OTP");
+            }
+        }
+        
+        function updateWelcomeName() {
+            document.getElementById('welcomeName').innerText = `Welcome, Sayantan!`;
+        }
 
-    // Show splash for 4 seconds
-    window.onload = function() {
-      setTimeout(() => {
-        document.getElementById("splashScreen").style.display = "none";
-        document.getElementById("loginScreen").classList.add("active");
-      }, 4000);
-    }
+        function setActiveNav(id) {
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(document.getElementById(id)) {
+                document.getElementById(id).classList.add('active');
+            }
+        }
+        
+        function showProfileView() {
+            document.getElementById('profileDetails').innerHTML =
+                `<p><strong>Name:</strong> Sayantan Kundu</p>` +
+                `<p><strong>Email:</strong> sayantankundu@gmail.com</p>` +
+                `<p><strong>Phone:</strong> 589-658-4596</p>` +
+                `<p><strong>Status:</strong> <span style="color:var(--primary-color);">Active</span></p>`;
+            goToScreen('profileViewScreen');
+        }
 
-    // Camera Access - only when Proof of Evidence screen is shown
-    function openCamera() {
-      const video = document.getElementById("camera");
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true })
-          .then(stream => { video.srcObject = stream; })
-          .catch(err => console.log("Camera not available", err));
-      }
-    }
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName + 'Section').style.display = 'block';
+            document.getElementById(tabName.slice(0, -1) + 'Tab').classList.add('active');
+        }
 
-    function goToScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      // Show nav on all screens except splash, login, and profile setup
-      const nav = document.getElementById('bottomNav');
-      if (id !== 'splashScreen' && id !== 'loginScreen' && id !== 'profileScreen') {
-        nav.classList.add('active');
-      } else {
-        nav.classList.remove('active');
-      }
-      if (id === 'proofScreen') {
-        openCamera();
-      }
-    }
+        function logout() {
+            goToScreen('loginScreen');
+        }
 
-    function sendOTP() {
-      generatedOTP = "1234";
-      document.getElementById("otpSection").style.display = "block";
-    }
-
-    function verifyOTP() {
-      let entered = document.getElementById("otp").value;
-      if (entered === generatedOTP) {
-        goToScreen('profileScreen');
-      } else {
-        alert("Invalid OTP");
-      }
-    }
-
-    function saveProfile() {
-      // Save profile data to localStorage (optional)
-      const name = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const address = document.getElementById('address').value;
-      const gender = document.getElementById('gender').value;
-      localStorage.setItem('profileName', name);
-      localStorage.setItem('profileEmail', email);
-      localStorage.setItem('profileAddress', address);
-      localStorage.setItem('profileGender', gender);
-      goToScreen('dashboardScreen');
-    }
-
-    function logout() {
-      // Optionally clear any stored data
-      goToScreen('loginScreen');
-    }
-
-    function openJobDetails(job) {
-      document.getElementById("jobTitle").innerText = job;
-      goToScreen('jobDetailsScreen');
-    }
-
-    function mockQRScan() {
-      document.getElementById("qrResult").innerText = "✅ QR Verified";
-    }
-
-    function capturePhoto() {
-      const canvas = document.getElementById("snapshot");
-      const context = canvas.getContext("2d");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const imgData = canvas.toDataURL("image/png");
-      document.getElementById("photoPreview").innerHTML = `<img src="${imgData}" width="100%">`;
-    }
-
-    function finishJob() {
-      let status = document.getElementById("status").value;
-      alert("Job updated as: " + status);
-      // Stop camera stream if active
-      const video = document.getElementById("camera");
-      if (video && video.srcObject) {
-        const tracks = video.srcObject.getTracks();
-        tracks.forEach(track => track.stop());
-        video.srcObject = null;
-      }
-      goToScreen('jobsScreen');
-    }
-
-    function setActiveNav(id) {
-      document.getElementById('navHome').classList.remove('active');
-      document.getElementById('navProfile').classList.remove('active');
-      document.getElementById('navHelp').classList.remove('active');
-      document.getElementById(id).classList.add('active');
-      // Show profile view when profile icon is clicked
-      if (id === 'navProfile') {
-        showProfileView();
-      }
-    }
-
-    function showProfileView() {
-      // Load profile data from localStorage (optional)
-      const name = localStorage.getItem('profileName') || '';
-      const email = localStorage.getItem('profileEmail') || '';
-      const address = localStorage.getItem('profileAddress') || '';
-      const gender = localStorage.getItem('profileGender') || '';
-      document.getElementById('profileDetails').innerHTML =
-        `<strong>Name:</strong> ${name}<br>` +
-        `<strong>Email:</strong> ${email}<br>` +
-        `<strong>Address:</strong> ${address}<br>` +
-        `<strong>Gender:</strong> ${gender ? gender.charAt(0).toUpperCase() + gender.slice(1) : ''}`;
-      goToScreen('profileViewScreen');
-    }
-
-    function showIncentives() {
-      document.getElementById('incentivesSection').style.display = '';
-      document.getElementById('penaltiesSection').style.display = 'none';
-      document.getElementById('incentiveTab').style.background = '#eafbe7';
-      document.getElementById('incentiveTab').style.color = '#219150';
-      document.getElementById('penaltyTab').style.background = '#fff3e0';
-      document.getElementById('penaltyTab').style.color = '#e65100';
-    }
-    function showPenalties() {
-      document.getElementById('incentivesSection').style.display = 'none';
-      document.getElementById('penaltiesSection').style.display = '';
-      document.getElementById('incentiveTab').style.background = '#eafbe7';
-      document.getElementById('incentiveTab').style.color = '#219150';
-      document.getElementById('penaltyTab').style.background = '#fff3e0';
-      document.getElementById('penaltyTab').style.color = '#e65100';
-    }
-    // Show incentives by default
-    if (typeof showIncentives === 'function') showIncentives();
-
-    function updateWelcomeName() {
-      const name = localStorage.getItem('profileName') || '';
-      document.getElementById('welcomeName').innerText = name ? `Welcome, ${name}!` : 'Welcome!';
-    }
-    // Call updateWelcomeName when showing dashboard
-    const oldGoToScreen = goToScreen;
-    goToScreen = function(id) {
-      oldGoToScreen.call(this, id);
-      if (id === 'dashboardScreen') updateWelcomeName();
-      if (id === 'proofScreen') openCamera();
-    }
-  </script>
-
+    </script>
 </body>
 </html>
